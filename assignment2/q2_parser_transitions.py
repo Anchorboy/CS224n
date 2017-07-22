@@ -19,6 +19,7 @@ class PartialParse(object):
         """
         import copy
         # The sentence being parsed is kept for bookkeeping purposes. Do not use it in your code.
+        # shallow copy of sentence!
         self.sentence = sentence
 
         ### YOUR CODE HERE

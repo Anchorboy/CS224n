@@ -66,7 +66,11 @@ def getRegularizationValues():
     """
     values = None   # Assign a list of floats in the block below
     ### YOUR CODE HERE
-    values = np.random.rand((100,))
+    init = 0.1
+    values = [0.0]
+    for i in range(10):
+        values.append(init)
+        init *= 0.3
     ### END YOUR CODE
     return sorted(values)
 
@@ -90,10 +94,13 @@ def chooseBestModel(results):
     bestResult = None
 
     ### YOUR CODE HERE
-    sort_dev = sorted(results, key=lambda x:x['dev'], reverse=True)[:10]
+    sort_dev = sorted(results, key=lambda x:x['dev'], reverse=True)
+    min_dev_acc = 0.365
     best_diff = 1e4
     best_idx = 0
     for res_idx, result in enumerate(sort_dev):
+        if result['dev'] < min_dev_acc:
+            break
         acc_diff = np.square(result['dev'] - result['train'])
         if acc_diff < best_diff:
             best_diff = acc_diff

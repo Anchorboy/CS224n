@@ -71,6 +71,7 @@ def softmaxCostAndGradient(predicted, target, outputVectors, dataset):
     cost = - np.log(probs[target])  # - y*log(y_hat)
 
     dcost = probs.copy()
+    # y_hat - y (one-hot only y[target] = 1)
     dcost[target] -= 1.0
 
     # grad = np.outer(dcost, predicted)
