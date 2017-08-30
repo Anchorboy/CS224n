@@ -59,7 +59,7 @@ class NERModel(Model):
         token_cm = ConfusionMatrix(labels=LBLS)
 
         correct_preds, total_correct, total_preds = 0., 0., 0.
-        for _, labels, labels_  in self.output(sess, examples_raw, examples):
+        for _, labels, labels_ in self.output(sess, examples_raw, examples):
             for l, l_ in zip(labels, labels_):
                 token_cm.update(l, l_)
             gold = set(get_chunks(labels))
@@ -82,11 +82,11 @@ class NERModel(Model):
             if self.report: self.report.log_train_loss(loss)
         print("")
 
-        #logger.info("Evaluating on training data")
-        #token_cm, entity_scores = self.evaluate(sess, train_examples, train_examples_raw)
-        #logger.debug("Token-level confusion matrix:\n" + token_cm.as_table())
-        #logger.debug("Token-level scores:\n" + token_cm.summary())
-        #logger.info("Entity level P/R/F1: %.2f/%.2f/%.2f", *entity_scores)
+        logger.info("Evaluating on training data")
+        token_cm, entity_scores = self.evaluate(sess, train_examples, train_examples_raw)
+        logger.debug("Token-level confusion matrix:\n" + token_cm.as_table())
+        logger.debug("Token-level scores:\n" + token_cm.summary())
+        logger.info("Entity level P/R/F1: %.2f/%.2f/%.2f", *entity_scores)
 
         logger.info("Evaluating on development data")
         token_cm, entity_scores = self.evaluate(sess, dev_set, dev_set_raw)

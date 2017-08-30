@@ -110,6 +110,7 @@ def pad_sequences(data, max_length):
         labels += [zero_label for _ in range(max_length - sent_len)]
         mask += [True for _ in range(sent_len)]
         mask += [False for _ in range(max_length - sent_len)]
+        # mask = sentence!=0
         ret += [(sentence, labels, mask)]
         ### END YOUR CODE ###
     return ret
@@ -386,6 +387,7 @@ class RNNModel(NERModel):
         return loss
 
     def __init__(self, helper, config, pretrained_embeddings, report=None):
+        # initialize parent class
         super(RNNModel, self).__init__(helper, config, report)
         self.max_length = min(Config.max_length, helper.max_length)
         Config.max_length = self.max_length # Just in case people make a mistake.

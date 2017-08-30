@@ -148,8 +148,10 @@ def window_iterator(seq, n=1, beg="<s>", end="</s>"):
         l = max(0, i-n)
         r = min(len(seq), i+n+1)
         ret = seq[l:r]
+        # [beg, ] for n - i times + [ret]
         if i < n:
             ret = [beg,] * (n-i) + ret
+        # [ret] + [end, ] for i + n + 1 - len(seq)
         if i+n+1 > len(seq):
             ret = ret + [end,] * (i+n+1 - len(seq))
         yield ret
